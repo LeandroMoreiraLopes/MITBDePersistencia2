@@ -1,50 +1,58 @@
 package com.example.demo.modelo.persistencia;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.demo.modelo.entidade.Calcado;
-import com.example.demo.modelo.entidade.Roupa;
-import com.example.demo.modelo.entidade.Vestuario;
+import com.example.demo.modelo.entidade.*;
 
 @SpringBootTest
 class AluguelRepositoryTests {
 
-    @Autowired
-    private VestuarioRepository vestuarioRepository;
+	@Autowired
+    private AluguelRepository aluguelRepository;
 
     @Test
     void testAdicionaAluguel(){
         Roupa roupa = new Roupa();
-        roupa.setNome("Paletó Spring");
+        roupa.setNome("Vestido primavera");
         roupa.setValor(500.0);
-        roupa.setTamanho("G");
-        roupa.setCor("Azul");
-        roupa.setTipo("Passeio completo");
-        roupa.setMaterial("Linho");
+        roupa.setTamanho("P");
+        roupa.setCor("Rosa");
+        roupa.setTipo("Sport Fino");
+        roupa.setMaterial("Algodão");
 
-        Roupa vestuarioValidacao = vestuarioRepository.save(roupa);
-
-        assertNotNull(vestuarioValidacao);
-        assertEquals(roupa.getId(), vestuarioValidacao.getId());
-    }
-    
-    @Test
-    void testAdicionaVestuarioCalcado(){
         Calcado calcado = new Calcado();
-        calcado.setNome("Paletó Spring");
-        calcado.setValor(500.0);
-        calcado.setTamanho("G");
-        calcado.setNumeracao(40);
-        calcado.setTipoDeSalto("Baixo");
+        calcado.setNome("Scarpin");
+        calcado.setValor(200.0);
+        calcado.setTamanho("P");
+        calcado.setNumeracao(36);
+        calcado.setTipoDeSalto("Agulha");
         
-        Calcado vestuarioValidacao = vestuarioRepository.save(calcado);
+        List<Vestuario> itensAlugados = new ArrayList<Vestuario>();
+        itensAlugados.add(calcado);
+        itensAlugados.add(roupa);
+        
+        Aluguel aluguel = new Aluguel();
+        aluguel.setItemAluguel(itensAlugados);
+        aluguel.setStatus(Status.Proposto);
+        
+        Cliente cliente = new Cliente();
+        cliente.setNome("Joao");
+        cliente.setEndereco("Paiva");
+        aluguel.setCliente(cliente);
+        
+        Aluguel aluguelValidacao = aluguelRepository.save(aluguel);
 
-        assertNotNull(vestuarioValidacao);
-        assertEquals(calcado.getId(), vestuarioValidacao.getId());
+        assertNotNull(aluguelValidacao);
+        assertEquals(aluguel.getCodigo(), aluguelValidacao.getCodigo());
     }
+	
+	
+
 }

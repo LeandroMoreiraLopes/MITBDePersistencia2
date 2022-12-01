@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.demo.modelo.entidade.Calcado;
 import com.example.demo.modelo.entidade.Roupa;
 import com.example.demo.modelo.entidade.Vestuario;
+import com.example.demo.modelo.persistencia.VestuarioRepository;
 
 @SpringBootTest
 class VestuarioRepositoryTests {

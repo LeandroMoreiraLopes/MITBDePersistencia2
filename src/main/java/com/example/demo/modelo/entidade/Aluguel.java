@@ -2,9 +2,11 @@ package com.example.demo.modelo.entidade;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,10 +21,10 @@ public class Aluguel {
 	private Long codigo;
     @Enumerated(EnumType.STRING)
     private Status status;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Cliente cliente;
-    @OneToMany(mappedBy = "aluguel")
-    private List<ItemAluguel> itemAluguel;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Vestuario> itemAluguel;
 
 	public Aluguel() {
 	}
@@ -51,11 +53,11 @@ public class Aluguel {
 		this.cliente = cliente;
 	}
 
-	public List<ItemAluguel> getItemAluguel() {
+	public List<Vestuario> getItemAluguel() {
 		return itemAluguel;
 	}
 
-	public void setItemAluguel(List<ItemAluguel> itemAluguel) {
+	public void setItemAluguel(List<Vestuario> itemAluguel) {
 		this.itemAluguel = itemAluguel;
 	}
 
